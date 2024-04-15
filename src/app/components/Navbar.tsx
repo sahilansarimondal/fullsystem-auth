@@ -15,7 +15,7 @@ const Navbar = () => {
           <div className="text-3xl font-bold">LG</div>
         </Link>
         <SearchIcon />
-        <div className="flex hover:text-green-400">
+        <div className="hidden md:flex hover:text-green-400">
           <Button name="Explore" />
           <MoreIcon />
         </div>
