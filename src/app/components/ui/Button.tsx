@@ -1,14 +1,22 @@
 import React from "react";
 
-interface Value {
+interface ButtonProps {
   name: string;
-  className: string;
+  className?: string;
+  onClick?: () => void;
 }
 
-const Button = ({ value }: { value: Value }) => {
+const Button: React.FC<ButtonProps> = ({
+  name,
+  className,
+  onClick,
+}) => {
   return (
-    <button className={value.className}>
-      {value.name}
+    <button
+      onClick={onClick}
+      className={` font-medium rounded ` + className}
+    >
+      {name}
     </button>
   );
 };

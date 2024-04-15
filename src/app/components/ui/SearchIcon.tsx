@@ -3,7 +3,7 @@ import React from "react";
 const SearchIcon = () => {
   return (
     <svg
-      className=" hover:fill-blue-700"
+      className=" hover:fill-[#2cde80]"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       height="24"

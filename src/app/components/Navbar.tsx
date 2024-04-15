@@ -1,28 +1,35 @@
+"use client";
 import SearchIcon from "@/app/components/ui/SearchIcon";
 import Button from "./ui/Button";
+import Link from "next/link";
+import MoreIcon from "./ui/MoreIcon";
 
 const Navbar = () => {
+  const handleClick = () => {
+    console.log("clicked");
+  };
   return (
-    <div className="flex justify-between items-center p-4">
-      <div className="flex gap-4 items-center">
-        <h1 className="text-3xl font-bold">LG</h1>
+    <div className="flex text-blue-950 justify-between items-center py-3 px-12 max-w-[1080px] md:mx-auto">
+      <div className="flex gap-6 items-center">
+        <Link href="/">
+          <div className="text-3xl font-bold">LG</div>
+        </Link>
         <SearchIcon />
-        <div className=" hidden md:block">Explore</div>
+        <div className="flex hover:text-green-400">
+          <Button name="Explore" />
+          <MoreIcon />
+        </div>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <Button
-          value={{
-            name: "Start free trial",
-            className:
-              "bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded",
-          }}
+          name="Start free trial"
+          className=" bg-green-400  hover:bg-green-500 py-2.5 px-4 "
         />
         <Button
-          value={{
-            name: "Log in",
-            className: " hover:text-blue-700",
-          }}
+          onClick={handleClick}
+          name="Log in"
+          className=" hover:text-green-400"
         />
       </div>
     </div>
