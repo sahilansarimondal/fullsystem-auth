@@ -40,7 +40,7 @@ const InputField: React.FC<InputFieldProps> = ({
       />
       {error && (
         <p className="text-red-500">
-          {label} can't be empty!
+          {label} can not be empty!
         </p>
       )}
     </div>

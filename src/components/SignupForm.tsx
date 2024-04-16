@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import InputField from "./ui/InputField";
 import Button from "./ui/Button";
-import { setEnvironmentData } from "worker_threads";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
