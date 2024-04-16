@@ -6,10 +6,6 @@ import GoogleIcon from "@/components/ui/GoogleIcon";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
 import React from "react";
-import {
-  FacebookLoginButton,
-  GoogleLoginButton,
-} from "react-social-login-buttons";
 
 const page = () => {
   return (
@@ -30,7 +26,7 @@ const page = () => {
       </div>
       <div className=" w-full md:max-w-96 flex flex-col gap-3 justify-center font-medium items-center">
         <SocialIcon
-          className=" bg-blue-800 text-white w-full p-1 hover:bg-blue-900"
+          className=" bg-[#3b5998] text-white w-full p-1 hover:bg-blue-900"
           type="button"
           name="Login with Facebook"
           onClick={() => console.log("facebook")}
@@ -39,7 +35,7 @@ const page = () => {
           <FacebookIcon />
         </SocialIcon>
         <SocialIcon
-          className=" bg-blue-500 text-white w-full p-1 hover:bg-blue-400"
+          className=" bg-[#4285F4] text-white w-full p-1 hover:bg-blue-400"
           type="button"
           name="Login with Google"
           onClick={() => console.log("google")}
