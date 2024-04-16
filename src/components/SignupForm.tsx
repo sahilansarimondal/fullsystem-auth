@@ -12,14 +12,21 @@ import { setEnvironmentData } from "worker_threads";
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email.trim()) {
-      setError(true);
+    console.log({ email: email, password: password });
+    if (!email.trim()) {
+      setEmailError(true);
     } else {
-      setError(false);
+      setEmailError(false);
+    }
+    if (!password.trim()) {
+      setPasswordError(true);
+    } else {
+      setPasswordError(false);
     }
   };
 
@@ -32,8 +39,8 @@ const SignupForm = () => {
         type="email"
         label="Email"
         placeholder="Email"
+        error={emailError}
         value={email}
-        error={error}
         onChange={(e) => setEmail(e.target.value)}
       />
       <InputField
@@ -41,7 +48,7 @@ const SignupForm = () => {
         label="Password"
         placeholder="Password"
         value={password}
-        error={false}
+        error={passwordError}
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button

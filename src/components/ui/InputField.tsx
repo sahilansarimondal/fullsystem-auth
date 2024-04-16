@@ -7,7 +7,7 @@ interface InputFieldProps {
   label: string;
   value: string;
   placeholder: string;
-  error: boolean;
+  error?: boolean;
   disabled?: boolean;
   className?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
