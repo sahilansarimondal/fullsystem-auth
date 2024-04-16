@@ -1,14 +1,16 @@
 "use client";
 
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useState,
-} from "react";
+import React, { FormEvent, useState } from "react";
 import InputField from "./ui/InputField";
 import Button from "./ui/Button";
 
-const SignupForm = () => {
+interface SignupFormProps {
+  buttonName: string;
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({
+  buttonName,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -52,7 +54,7 @@ const SignupForm = () => {
       />
       <Button
         type="submit"
-        name="Sign up"
+        name={buttonName}
         className=" bg-green-400  hover:bg-green-500 py-2.5 px-4 "
       />
     </form>
