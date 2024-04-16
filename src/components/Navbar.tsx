@@ -1,5 +1,5 @@
 "use client";
-import SearchIcon from "@/app/components/ui/SearchIcon";
+import SearchIcon from "@/components/ui/SearchIcon";
 import Button from "./ui/Button";
 import Link from "next/link";
 import MoreIcon from "./ui/MoreIcon";
@@ -9,7 +9,7 @@ const Navbar = () => {
     console.log("clicked");
   };
   return (
-    <div className="flex text-blue-950 justify-between items-center py-3 px-12 max-w-[1080px] md:mx-auto">
+    <div className="flex text-blue-950 justify-between items-center py-3 px-3 md:px-12 max-w-[1080px] md:mx-auto">
       <div className="flex gap-6 items-center">
         <Link href="/">
           <div className="text-3xl font-bold">LG</div>
