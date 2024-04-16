@@ -1,6 +1,9 @@
 "use client";
 
 import SignupForm from "@/components/SignupForm";
+import FacebookIcon from "@/components/ui/FacebookIcon";
+import GoogleIcon from "@/components/ui/GoogleIcon";
+import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
 import React from "react";
 import {
@@ -26,16 +29,24 @@ const page = () => {
         <div className=" w-full border-b border-slate-300"></div>
       </div>
       <div className=" w-full md:max-w-96 flex flex-col gap-3 justify-center font-medium items-center">
-        <FacebookLoginButton
-          align="center"
-          preventActiveStyles={true}
-          size="44px"
-        />
-        <GoogleLoginButton
-          align="center"
-          preventActiveStyles={true}
-          size="44px"
-        />
+        <SocialIcon
+          className=" bg-blue-800 text-white w-full p-1 hover:bg-blue-900"
+          type="button"
+          name="Login with Facebook"
+          onClick={() => console.log("facebook")}
+        >
+          {" "}
+          <FacebookIcon />
+        </SocialIcon>
+        <SocialIcon
+          className=" bg-blue-500 text-white w-full p-1 hover:bg-blue-400"
+          type="button"
+          name="Login with Google"
+          onClick={() => console.log("google")}
+        >
+          {" "}
+          <GoogleIcon />
+        </SocialIcon>
         <Link className=" pt-6" href={"/login"}>
           Already have an account?
         </Link>

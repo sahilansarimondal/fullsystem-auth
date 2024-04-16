@@ -15,12 +15,14 @@ const SocialIcon: React.FC<
       type={type}
       onClick={onClick}
       className={
-        ` flex items-center gap-4 justify-center font-medium rounded ` +
+        ` flex items-center font-medium rounded ` +
         className
       }
     >
       <span>{children}</span>
-      <span>{name}</span>
+      <div className="w-full">
+        <span className="text-center">{name}</span>
+      </div>
     </button>
   );
 };
