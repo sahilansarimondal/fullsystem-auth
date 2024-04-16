@@ -16,17 +16,19 @@ const Navbar = () => {
         </Link>
         <SearchIcon />
         <div className="hidden md:flex hover:text-green-400">
-          <Button name="Explore" />
+          <Button type="button" name="Explore" />
           <MoreIcon />
         </div>
       </div>
 
       <div className="flex gap-6">
         <Button
+          type="button"
           name="Start free trial"
           className=" bg-green-400  hover:bg-green-500 py-2.5 px-4 "
         />
         <Button
+          type="button"
           onClick={handleClick}
           name="Log in"
           className=" hover:text-green-400"
