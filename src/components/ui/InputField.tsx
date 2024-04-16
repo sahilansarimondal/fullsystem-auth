@@ -32,7 +32,7 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         onChange={onChange}
-        className={`${
+        className={` focus:border-green-500 ${
           error
             ? "border-red-500 focus:border-red-500"
             : "border-gray-300 focus:border-blue-500"

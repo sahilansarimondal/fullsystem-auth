@@ -27,12 +27,14 @@ const Navbar = () => {
           name="Start free trial"
           className=" bg-green-400  hover:bg-green-500 py-2.5 px-4 "
         />
-        <Button
-          type="button"
-          onClick={handleClick}
-          name="Log in"
-          className=" hover:text-green-400"
-        />
+        <Link className="flex justify-center" href="/login">
+          <Button
+            type="button"
+            onClick={handleClick}
+            name="Log in"
+            className=" hover:text-green-400"
+          />
+        </Link>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ const SignupForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-3"
+      className="flex flex-col gap-3  min-w-full md:min-w-96"
     >
       <InputField
         type="email"
