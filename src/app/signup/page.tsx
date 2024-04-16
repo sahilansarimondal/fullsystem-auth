@@ -9,8 +9,8 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-3 justify-center items-center p-4">
-      <h2 className=" font-bold text-4xl p-8">
+    <div className="flex flex-col gap-3 justify-center items-center max-w-[1080px] md:px-12 p-4 md:mx-auto">
+      <h2 className=" font-bold text-2xl md:text-4xl text-center py-4 md:py-8">
         Get unlimited access to the key ideas of 6,500+
         non-fiction bestsellers
       </h2>
@@ -43,7 +43,10 @@ const page = () => {
           {" "}
           <GoogleIcon />
         </SocialIcon>
-        <Link className=" pt-6" href={"/login"}>
+        <Link
+          className=" pt-6 hover:text-blue-500"
+          href={"/login"}
+        >
           Already have an account?
         </Link>
       </div>

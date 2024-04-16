@@ -41,10 +41,18 @@ const LoginPage = () => {
           {" "}
           <GoogleIcon />
         </SocialIcon>
-        <Link className=" pt-6" href={"/signup"}>
+        <Link
+          className=" pt-6 hover:text-blue-500"
+          href={"/signup"}
+        >
           You don&apos;t have an account?
         </Link>
-        <Link href={"/forgot"}>Forgot your password?</Link>
+        <Link
+          className=" hover:text-blue-500"
+          href={"/forgot"}
+        >
+          Forgot your password?
+        </Link>
       </div>
     </div>
   );
