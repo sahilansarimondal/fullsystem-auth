@@ -5,9 +5,6 @@ import Link from "next/link";
 import MoreIcon from "./ui/MoreIcon";
 
 const Navbar = () => {
-  const handleClick = () => {
-    console.log("clicked");
-  };
   return (
     <div className="flex text-blue-950 justify-between items-center py-3 px-3 md:px-12 max-w-[1080px] md:mx-auto">
       <div className="flex gap-6 items-center">
@@ -30,7 +27,6 @@ const Navbar = () => {
         <Link className="flex justify-center" href="/login">
           <Button
             type="button"
-            onClick={handleClick}
             name="Log in"
             className=" hover:text-blue-500"
           />

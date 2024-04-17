@@ -4,10 +4,20 @@ import SignupForm from "@/components/SignupForm";
 import FacebookIcon from "@/components/ui/FacebookIcon";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 import SocialIcon from "@/components/ui/SocialIcon";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
-const page = () => {
+const SignupPage = () => {
+  const router = useRouter();
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
   return (
     <div className="flex flex-col gap-3 justify-center items-center max-w-[1080px] md:px-12 p-4 md:mx-auto">
       <h2 className=" font-bold text-2xl md:text-4xl text-center py-4 md:py-8">
@@ -38,7 +48,7 @@ const page = () => {
           className=" bg-[#4285F4] text-white w-full p-1 hover:bg-blue-400"
           type="button"
           name="Login with Google"
-          onClick={() => console.log("google")}
+          onClick={() => signIn("google")}
         >
           {" "}
           <GoogleIcon />
@@ -54,4 +64,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignupPage;
