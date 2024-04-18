@@ -38,8 +38,8 @@ const SignupPage = () => {
         <SocialIcon
           className=" bg-[#3b5998] text-white w-full p-1 hover:bg-blue-900"
           type="button"
-          name="Login with Facebook"
-          onClick={() => console.log("facebook")}
+          name="Continue with Facebook"
+          onClick={() => signIn("facebook")}
         >
           {" "}
           <FacebookIcon />
@@ -47,7 +47,7 @@ const SignupPage = () => {
         <SocialIcon
           className=" bg-[#4285F4] text-white w-full p-1 hover:bg-blue-400"
           type="button"
-          name="Login with Google"
+          name="Continue with Google"
           onClick={() => signIn("google")}
         >
           {" "}

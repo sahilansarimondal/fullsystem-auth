@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  console.log(session);
   if (!session) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -21,6 +22,7 @@ export default async function Home() {
       <div>
         {session && (
           <UserInfo
+            image={session.user?.image as string}
             name={session.user?.name as string}
             email={session.user?.email as string}
           />

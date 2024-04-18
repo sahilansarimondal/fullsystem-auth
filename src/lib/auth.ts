@@ -10,9 +10,9 @@ export const authOptions: AuthOptions = {
         .GOOGLE_CLIENT_SECRET as string,
     }),
     Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientId: process.env.FACEBOOK_APP_ID as string,
       clientSecret: process.env
-        .FACEBOOK_CLIENT_SECRET as string,
+        .FACEBOOK_APP_SECRET as string,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

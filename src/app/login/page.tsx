@@ -39,7 +39,7 @@ const LoginPage = () => {
           className=" bg-[#3b5998] text-white w-full p-1 hover:bg-blue-900"
           type="button"
           name="Login with Facebook"
-          onClick={() => console.log("facebook")}
+          onClick={() => signIn("facebook")}
         >
           {" "}
           <FacebookIcon />
