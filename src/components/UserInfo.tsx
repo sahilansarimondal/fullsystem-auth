@@ -17,11 +17,6 @@ const UserInfo: React.FC<UserInfoProps> = ({
 }) => {
   return (
     <div>
-      <Image
-        src={image as string}
-        alt="user"
-        className="w-16 h-16 rounded-full"
-      />
       <h2>{name}</h2>
       <p>{email}</p>
       <button

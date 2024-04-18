@@ -22,7 +22,6 @@ export default async function Home() {
       <div>
         {session && (
           <UserInfo
-            image={session.user?.image as string}
             name={session.user?.name as string}
             email={session.user?.email as string}
           />
