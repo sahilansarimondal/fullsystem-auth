@@ -2,19 +2,27 @@
 
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/InputField";
+import { signIn } from "next-auth/react";
 import React, { FormEvent, useState } from "react";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     console.log({ email: email });
     if (!email.trim()) {
       setEmailError(true);
     } else {
       setEmailError(false);
+      await signIn("email", {
+        email: email,
+        redirect: true,
+        callbackUrl: "http://localhost:3000/createpassword",
+      });
     }
   };
   return (

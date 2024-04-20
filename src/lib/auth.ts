@@ -7,6 +7,8 @@ import Email, {
   SendVerificationRequestParams,
 } from "next-auth/providers/email";
 import { Resend } from "resend";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -60,6 +62,42 @@ export const authOptions: AuthOptions = {
           });
         } catch (error) {
           console.log({ error });
+        }
+      },
+    }),
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        if (!credentials) {
+          return null;
+        }
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user) {
+          // create user;
+          return null;
+        } else {
+          // check password and email varification
+          const isValidPassword = await bcrypt.compare(
+            credentials.password,
+            user.password as string
+          );
+          const isVarifiedUser = user.emailVerified;
+          if (isValidPassword) {
+            if (!isVarifiedUser) {
+              return null;
+            }
+            return user;
+          }
+          return null;
         }
       },
     }),

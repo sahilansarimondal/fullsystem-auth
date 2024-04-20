@@ -22,27 +22,49 @@ const SignupForm: React.FC<SignupFormProps> = ({
   ) => {
     e.preventDefault();
     console.log({ email: email, password: password });
-
     if (!email.trim()) {
       setEmailError(true);
+    } else {
+      setEmailError(false);
       await signIn("email", {
         email: email,
         redirect: true,
-        callbackUrl: "http://localhost:3000",
+        callbackUrl: "http://localhost:3000/createpassword",
       });
+    }
+  };
+  const handleSubmitLog = async (
+    e: FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    console.log({ email: email, password: password });
+
+    if (!email.trim()) {
+      setEmailError(true);
     } else {
       setEmailError(false);
     }
+
     if (!password.trim()) {
       setPasswordError(true);
     } else {
       setPasswordError(false);
+      await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: true,
+        callbackUrl: "http://localhost:3000",
+      });
     }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={
+        buttonName === "Create account"
+          ? handleSubmit
+          : handleSubmitLog
+      }
       className="flex flex-col gap-3  min-w-full md:min-w-96"
     >
       <InputField
@@ -53,15 +75,16 @@ const SignupForm: React.FC<SignupFormProps> = ({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-
-      <InputField
-        type="password"
-        label="Password"
-        placeholder="Password"
-        value={password}
-        error={passwordError}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      {buttonName !== "Create account" && (
+        <InputField
+          type="password"
+          label="Password"
+          placeholder="Password"
+          value={password}
+          error={passwordError}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      )}
 
       <Button
         type="submit"
