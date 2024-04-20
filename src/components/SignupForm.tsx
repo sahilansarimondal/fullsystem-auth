@@ -3,6 +3,7 @@
 import React, { FormEvent, useState } from "react";
 import InputField from "./ui/InputField";
 import Button from "./ui/Button";
+import { signIn } from "next-auth/react";
 
 interface SignupFormProps {
   buttonName: string;
@@ -16,11 +17,19 @@ const SignupForm: React.FC<SignupFormProps> = ({
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     console.log({ email: email, password: password });
+
     if (!email.trim()) {
       setEmailError(true);
+      await signIn("email", {
+        email: email,
+        redirect: true,
+        callbackUrl: "http://localhost:3000",
+      });
     } else {
       setEmailError(false);
     }
@@ -44,6 +53,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+
       <InputField
         type="password"
         label="Password"
@@ -52,6 +62,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         error={passwordError}
         onChange={(e) => setPassword(e.target.value)}
       />
+
       <Button
         type="submit"
         name={buttonName}
