@@ -29,7 +29,8 @@ const SignupForm: React.FC<SignupFormProps> = ({
       await signIn("email", {
         email: email,
         redirect: true,
-        callbackUrl: "http://localhost:3000/createpassword",
+        callbackUrl:
+          process.env.NEXT_PUBLIC_URL + "/createpassword",
       });
     }
   };
@@ -53,7 +54,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         email: email,
         password: password,
         redirect: true,
-        callbackUrl: "http://localhost:3000",
+        callbackUrl: process.env.NEXT_PUBLIC_URL,
       });
     }
   };

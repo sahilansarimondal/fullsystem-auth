@@ -47,7 +47,7 @@ const CreatePassword = () => {
           email: email,
           password: password,
           redirect: true,
-          callbackUrl: "http://localhost:3000",
+          callbackUrl: process.env.NEXT_PUBLIC_URL,
         });
       }
       setPasswordError(false);
