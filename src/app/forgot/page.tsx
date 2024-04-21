@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         email: email,
         redirect: true,
         callbackUrl:
-          process.env.NEXT_PUBLIC_URL + "/createpassword",
+          process.env.NEXT_PUBLIC_URL! + "/createpassword",
       });
     }
   };
