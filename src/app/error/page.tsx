@@ -4,6 +4,7 @@ import {
   useParams,
   useSearchParams,
 } from "next/navigation";
+import { Suspense } from "react";
 
 enum Error {
   Configuration = "Configuration",
@@ -22,11 +23,9 @@ const errorMap = {
   ),
 };
 
-export default function AuthErrorPage() {
+function AuthErrorPage() {
   const search = useSearchParams();
   const error = search.get("error") as Error;
-
-  console.log(error);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -44,5 +43,13 @@ export default function AuthErrorPage() {
       </a>
       <div></div>
     </div>
+  );
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense>
+      <AuthErrorPage />
+    </Suspense>
   );
 }

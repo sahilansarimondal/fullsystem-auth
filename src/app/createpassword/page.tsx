@@ -19,7 +19,7 @@ const CreatePassword = () => {
     if (data) {
       setEmail(data.user?.email as string);
     }
-  }, [password]);
+  }, [password, data]);
 
   const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
