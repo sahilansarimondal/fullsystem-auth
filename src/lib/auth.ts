@@ -25,11 +25,12 @@ export const authOptions: AuthOptions = {
     }),
     Email({
       server: "",
-      from: "onboarding@resend.dev",
+      from: "onboarding@sahilansari.online",
       sendVerificationRequest: async (
         params: SendVerificationRequestParams
       ) => {
         let { identifier, url, provider } = params;
+        console.log({ identifier, url, provider });
         try {
           let resend = new Resend(
             process.env.RESEND_API_KEY!
@@ -37,11 +38,11 @@ export const authOptions: AuthOptions = {
           await resend.emails.send({
             from: provider.from,
             to: identifier,
-            subject: "Your StreakUp Login Link",
+            subject: "Your Scott Login Link",
             html:
               '<html><body>\
               <h2>Your Login Link</h2>\
-              <p>Welcome to StreakUp!</p>\
+              <p>Welcome to Scott!</p>\
               <p>Please click the magic link below to sign in to your account.</p>\
               <p><a href="' +
               url +
