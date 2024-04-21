@@ -81,7 +81,7 @@ export const authOptions: AuthOptions = {
 
         if (!user) {
           // create user;
-          return null;
+          throw new Error("User not found");
         } else {
           // check password and email varification
           const isValidPassword = await bcrypt.compare(
@@ -91,15 +91,18 @@ export const authOptions: AuthOptions = {
           const isVarifiedUser = user.emailVerified;
           if (isValidPassword) {
             if (!isVarifiedUser) {
-              return null;
+              throw new Error("Email not verified");
             }
             return user;
           }
-          return null;
+          throw new Error("Invalid password");
         }
       },
     }),
   ],
+  pages: {
+    error: "/error", // Custom error page
+  },
   debug: process.env.NODE_ENV === "development",
 
   secret: process.env.NEXTAUTH_SECRET,
