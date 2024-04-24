@@ -21,8 +21,7 @@ const SignupPage = () => {
   return (
     <div className="flex flex-col gap-3 justify-center items-center max-w-[1080px] md:px-12 p-4 md:mx-auto">
       <h2 className=" font-bold text-2xl md:text-4xl text-center py-4 md:py-8">
-        Get unlimited access to the key ideas of 6,500+
-        non-fiction bestsellers
+        Sign up for free
       </h2>
 
       <SignupForm buttonName="Create account" />
