@@ -3,6 +3,7 @@
 import FromWrapper from "@/components/FromWrapper";
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/InputField";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const signupForm = {
@@ -37,6 +38,7 @@ const steps = [
 ];
 
 const GetStarted = () => {
+  const router = useRouter();
   const [activeFrom, setActiveFrom] = React.useState(0);
   const [form, setForm] = React.useState(signupForm);
 
@@ -58,26 +60,7 @@ const GetStarted = () => {
         return;
       } else {
         setForm({ ...form, groupPasswordError: false });
-        setActiveFrom(2);
-      }
-    } else if (activeFrom === 2) {
-      if (form.planValue === "") {
-        setForm({ ...form, planValueError: true });
-        return;
-      } else {
-        setForm({ ...form, planValueError: false });
-      }
-      if (!form.cardHolderName.trim()) {
-        setForm({ ...form, cardHolderNameError: true });
-        return;
-      } else {
-        setForm({ ...form, cardHolderNameError: false });
-      }
-      if (!form.cardNumber.trim()) {
-        setForm({ ...form, cardNumberError: true });
-        return;
-      } else {
-        setForm({ ...form, cardNumberError: false });
+        router.push("/payment");
       }
     }
     console.log(form);
@@ -151,106 +134,6 @@ const GetStarted = () => {
             />
           </FromWrapper>
         )}
-        {activeFrom === 2 && (
-          <FromWrapper
-            heading="Select a Plan"
-            para="Lorem helo lorem werrn fiewfe noad g feiwhe woiewf howfeji fwoeijwe hoife."
-          >
-            <div className="flex flex-col gap-3 items-start">
-              <div>
-                <p>Chose a plan</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  id="plan1"
-                  name="planvalue"
-                  value="9.95"
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      planValue: e.target.value,
-                    })
-                  }
-                  checked={form.planValue === "9.95"}
-                />
-                <label htmlFor="plan1">
-                  Plan 1 : $9.95
-                </label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  id="plan2"
-                  name="planvalue"
-                  value="15.95"
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      planValue: e.target.value,
-                    })
-                  }
-                  checked={form.planValue === "15.95"}
-                />
-                <label htmlFor="plan2">
-                  Plan 2 : $15.95
-                </label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  id="plan3"
-                  name="planvalue"
-                  value="24.95"
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      planValue: e.target.value,
-                    })
-                  }
-                  checked={form.planValue === "24.95"}
-                />
-                <label htmlFor="plan3">
-                  Plan 3 : $24.95
-                </label>
-              </div>
-              <div>
-                {form.planValueError && (
-                  <p className="text-red-500">
-                    Please select a plan
-                  </p>
-                )}
-              </div>
-            </div>
-
-            <InputField
-              type="text"
-              label="name"
-              placeholder="Enter Name"
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  cardHolderName: e.target.value,
-                })
-              }
-              value={form.cardHolderName}
-              error={form.cardHolderNameError}
-            />
-            <InputField
-              type="text"
-              label="cardNumber"
-              placeholder="Enter Card Number MM/YY CVC"
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  cardNumber: e.target.value,
-                })
-              }
-              value={form.cardNumber}
-              error={form.cardNumberError}
-            />
-          </FromWrapper>
-        )}
 
         <div className=" button flex justify-between pt-6">
           <div>
@@ -270,7 +153,7 @@ const GetStarted = () => {
           </div>
 
           <Button
-            name={activeFrom === 2 ? "Pay" : "Next"}
+            name={activeFrom === 1 ? "Payment" : "Next"}
             type="submit"
             className=" bg-green-400 border-2 hover:bg-green-500 border-green-400 hover:border-green-500 py-[2px] px-5"
           />
