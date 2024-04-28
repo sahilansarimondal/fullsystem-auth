@@ -20,10 +20,10 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className=" relative  bg-white border border-black rounded-lg p-2 m-4 flex flex-col gap-3 justify-center items-center md:p-4  md:max-w-[800px] mt-12 min-h-[550px]  md:mx-auto">
-      <div className=" button flex flex-col pb-4 justify-between pt-6">
-        <section className=" py-12">
-          <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div className=" relative  bg-white border border-black rounded-lg p-2 m-4 flex flex-col gap-3 justify-center items-center md:p-4  md:max-w-[750px] mt-12 min-h-[550px]  md:mx-auto">
+      <div className=" button flex flex-col pb-4 justify-between pt-4">
+        <section className=" py-4">
+          <div className="max-w-7xl mx-auto sm:px-3 lg:px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-extrabold text-orange-500 sm:text-5xl">
                 Pricing Plans
@@ -40,18 +40,18 @@ const PaymentPage = () => {
                 ))}
             </div>
           </div>
-        </section>
 
-        <div>
-          <Button
-            name="Back"
-            type="button"
-            className=" bg-white border-2 hover:bg-slate-100 border-green-400 hover:border-green-500 py-[2px] px-5"
-            onClick={() => {
-              router.push("/getstarted");
-            }}
-          />
-        </div>
+          <div className="sm:px-3 lg:px-4 pt-8">
+            <Button
+              name="Back"
+              type="button"
+              className=" bg-white border-2 hover:bg-slate-100 border-green-400 hover:border-green-500 py-[2px] px-5"
+              onClick={() => {
+                router.push("/getstarted");
+              }}
+            />
+          </div>
+        </section>
       </div>
     </div>
   );
