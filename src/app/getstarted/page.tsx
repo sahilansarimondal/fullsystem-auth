@@ -3,7 +3,11 @@
 import FromWrapper from "@/components/FromWrapper";
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/InputField";
-import { useRouter } from "next/navigation";
+import { createFriends } from "@/lib/actions";
+import {
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import React from "react";
 
 const signupForm = {
@@ -14,12 +18,7 @@ const signupForm = {
   email4: "",
   groupPassword: "",
   groupPasswordError: false,
-  planValue: "",
-  planValueError: false,
-  cardHolderName: "",
-  cardHolderNameError: false,
-  cardNumber: "",
-  cardNumberError: false,
+  userId: "" || undefined,
 };
 
 const steps = [
@@ -39,10 +38,11 @@ const steps = [
 
 const GetStarted = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeFrom, setActiveFrom] = React.useState(0);
   const [form, setForm] = React.useState(signupForm);
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -60,6 +60,14 @@ const GetStarted = () => {
         return;
       } else {
         setForm({ ...form, groupPasswordError: false });
+        const friends = await createFriends({
+          friend1: form.email1,
+          friend2: form.email2,
+          friend3: form.email3,
+          friend4: form.email4,
+          password: form.groupPassword,
+          userEmail: searchParams.get("email") as string,
+        });
         router.push("/payment");
       }
     }

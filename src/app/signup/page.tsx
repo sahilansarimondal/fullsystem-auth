@@ -11,11 +11,11 @@ import React, { useEffect } from "react";
 
 const SignupPage = () => {
   const router = useRouter();
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/");
+      router.push("/getstarted?email=" + data.user?.email);
     }
   }, [status, router]);
   return (
