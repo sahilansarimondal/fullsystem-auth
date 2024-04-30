@@ -68,7 +68,7 @@ const GetStarted = () => {
           password: form.groupPassword,
           userEmail: searchParams.get("email") as string,
         });
-        router.push("/payment");
+        router.push("/payment?userId=" + friends);
       }
     }
     console.log(form);

@@ -1,11 +1,12 @@
 import axios from "axios";
 import React from "react";
 
-const PricingCard = ({ price }: any) => {
+const PricingCard = ({ price, userId }: any) => {
   const handleCheckout = async () => {
     const { data } = await axios.post("/api/payment", {
       price: price.unit_amount,
       productName: price.product.name,
+      userId: userId,
     });
     window.location.assign(data);
   };

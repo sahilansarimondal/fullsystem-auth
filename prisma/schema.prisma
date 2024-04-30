@@ -21,6 +21,8 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  isPaid        Boolean         @default(false)
+  plan          String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support

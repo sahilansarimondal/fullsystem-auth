@@ -2,10 +2,16 @@
 import PricingCard from "@/components/PricingCard";
 import Button from "@/components/ui/Button";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import {
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import React from "react";
 
 const PaymentPage = () => {
+  const searchParams = useSearchParams();
+
+  const userId = searchParams.get("userId");
   const router = useRouter();
   const [prices, setPrices] = React.useState([]);
 
@@ -36,7 +42,11 @@ const PaymentPage = () => {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
               {prices &&
                 prices.map((price, index) => (
-                  <PricingCard key={index} price={price} />
+                  <PricingCard
+                    key={index}
+                    price={price}
+                    userId={userId as string}
+                  />
                 ))}
             </div>
           </div>

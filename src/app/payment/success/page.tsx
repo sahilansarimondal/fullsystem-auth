@@ -1,14 +1,33 @@
 // pages/success.tsx
 "use client";
-import { useRouter } from "next/navigation";
+import { getUserById, markUserAsPaid } from "@/lib/actions";
+import {
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useEffect } from "react";
 
 const SuccessPage: React.FC = () => {
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
     // Here you can handle any logic related to a successful operation
     console.log("Success!");
+
+    // update the user
+    async function updateUser() {
+      const data = await markUserAsPaid(
+        searchParams.get("userId") as string,
+        searchParams.get("plan") as string
+      );
+      // const data = await getUserById(
+      //   searchParams.get("userId") as string
+      // );
+      console.log(data);
+    }
+
+    updateUser();
 
     // Example: Redirecting to another page after some delay
     const redirectTimeout = setTimeout(() => {

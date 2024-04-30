@@ -49,6 +49,7 @@ export const createFriends = async ({
         userId: user?.id,
       },
     });
+    return user?.id;
   }
   if (
     friend1.trim() &&
@@ -71,6 +72,7 @@ export const createFriends = async ({
       ],
       skipDuplicates: true,
     });
+    return user?.id;
   }
 
   if (
@@ -99,6 +101,7 @@ export const createFriends = async ({
       ],
       skipDuplicates: true,
     });
+    return user?.id;
   }
 
   if (
@@ -144,6 +147,35 @@ export const getUser = async (email: string) => {
       email: email,
     },
     include: { childuser: true },
+  });
+  return data;
+};
+
+export const markUserAsPaid = async (
+  userId: string,
+  productName: string
+) => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new Error("User not found");
+  }
+  const data = await prisma.user.update({
+    where: {
+      email: user.email,
+    },
+    data: {
+      plan: productName,
+      isPaid: true,
+    },
+  });
+  return data.isPaid;
+};
+
+export const getUserById = async (userId: string) => {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
   });
   return data;
 };
