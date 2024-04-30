@@ -6,9 +6,9 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
-const PaymentPage = () => {
+const Payment = () => {
   const searchParams = useSearchParams();
 
   const userId = searchParams.get("userId");
@@ -64,6 +64,14 @@ const PaymentPage = () => {
         </section>
       </div>
     </div>
+  );
+};
+
+const PaymentPage = () => {
+  return (
+    <Suspense>
+      <Payment />
+    </Suspense>
   );
 };
 

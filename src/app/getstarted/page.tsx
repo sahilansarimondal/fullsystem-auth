@@ -8,7 +8,7 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 const signupForm = {
   email1: "",
@@ -171,4 +171,12 @@ const GetStarted = () => {
   );
 };
 
-export default GetStarted;
+const GetStartedPage = () => {
+  return (
+    <Suspense>
+      <GetStarted />
+    </Suspense>
+  );
+};
+
+export default GetStartedPage;

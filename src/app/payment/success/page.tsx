@@ -5,26 +5,19 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
-const SuccessPage: React.FC = () => {
+const Success = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    // Here you can handle any logic related to a successful operation
-    console.log("Success!");
-
     // update the user
     async function updateUser() {
       const data = await markUserAsPaid(
         searchParams.get("userId") as string,
         searchParams.get("plan") as string
       );
-      // const data = await getUserById(
-      //   searchParams.get("userId") as string
-      // );
-      console.log(data);
     }
 
     updateUser();
@@ -36,7 +29,7 @@ const SuccessPage: React.FC = () => {
 
     // Clean up the timeout to avoid memory leaks
     return () => clearTimeout(redirectTimeout);
-  }, []);
+  }, [searchParams, router]);
 
   return (
     <div className=" relative bg-white border border-black rounded-lg p-8 m-4 flex flex-col gap-3 justify-center items-center max-w-[1080px] md:px-12 md:max-w-[700px] mt-12 min-h-[550px]  md:mx-auto">
@@ -47,6 +40,14 @@ const SuccessPage: React.FC = () => {
         aut.
       </p>
     </div>
+  );
+};
+
+const SuccessPage = () => {
+  return (
+    <Suspense>
+      <Success />
+    </Suspense>
   );
 };
 
