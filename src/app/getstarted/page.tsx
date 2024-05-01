@@ -41,11 +41,22 @@ const GetStarted = () => {
   const searchParams = useSearchParams();
   const [activeFrom, setActiveFrom] = React.useState(0);
   const [form, setForm] = React.useState(signupForm);
+  const [showPasswrod, setShowPasswrod] =
+    React.useState(false);
+
+  const [confirmPassword, setConfirmPassword] =
+    React.useState("");
+  const [confirmPasswordError, setConfirmPasswordError] =
+    React.useState(false);
+
+  const [passwordLengthError, setPasswordLengthError] =
+    React.useState(false);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+
     if (activeFrom === 0) {
       if (!form.email1.trim()) {
         setForm({ ...form, email1Error: true });
@@ -55,6 +66,15 @@ const GetStarted = () => {
         setActiveFrom(1);
       }
     } else if (activeFrom === 1) {
+      if (form.groupPassword.length < 8) {
+        setPasswordLengthError(true);
+        return;
+      }
+
+      if (form.groupPassword !== confirmPassword) {
+        setConfirmPasswordError(true);
+        return;
+      }
       if (!form.groupPassword.trim()) {
         setForm({ ...form, groupPasswordError: true });
         return;
@@ -128,7 +148,7 @@ const GetStarted = () => {
             para="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem harum beatae hic?"
           >
             <InputField
-              type="password"
+              type={showPasswrod ? "text" : "password"}
               label="password"
               placeholder="Set Password"
               onChange={(e) =>
@@ -140,6 +160,45 @@ const GetStarted = () => {
               value={form.groupPassword}
               error={form.groupPasswordError}
             />
+            <InputField
+              type={showPasswrod ? "text" : "password"}
+              label="password"
+              placeholder="Confirm Password"
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
+              value={confirmPassword}
+              error={form.groupPasswordError}
+            />
+            <div>
+              <div className=" flex gap-2 text-slate-600 items-center">
+                <input
+                  type="checkbox"
+                  id="show"
+                  onChange={() =>
+                    setShowPasswrod((current) => !current)
+                  }
+                />
+                <label className=" text-sm" htmlFor="show">
+                  Show Passwrod
+                </label>
+              </div>
+
+              {confirmPasswordError && (
+                <div>
+                  <p className=" text-red-500">
+                    Passwords do not match
+                  </p>
+                </div>
+              )}
+              {passwordLengthError && (
+                <div>
+                  <p className=" text-red-500">
+                    Password must be at least 8 characters
+                  </p>
+                </div>
+              )}
+            </div>
           </FromWrapper>
         )}
 
