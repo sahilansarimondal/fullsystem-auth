@@ -4,6 +4,8 @@ import React, { FormEvent, useState } from "react";
 import InputField from "./ui/InputField";
 import Button from "./ui/Button";
 import { signIn } from "next-auth/react";
+import { getUser } from "@/lib/actions";
+import toast, { Toaster } from "react-hot-toast";
 
 interface SignupFormProps {
   buttonName: string;
@@ -26,6 +28,14 @@ const SignupForm: React.FC<SignupFormProps> = ({
       setEmailError(true);
     } else {
       setEmailError(false);
+
+      const user = await getUser(email);
+
+      if (user) {
+        toast.error("User already exists, please login");
+        return;
+      }
+
       await signIn("email", {
         email: email,
         redirect: true,
@@ -92,6 +102,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         name={buttonName}
         className=" bg-green-400  hover:bg-green-500 py-2.5 px-4 "
       />
+      <Toaster position="top-center" />
     </form>
   );
 };
