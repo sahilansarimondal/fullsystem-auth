@@ -6,6 +6,7 @@ import Button from "./ui/Button";
 import { signIn } from "next-auth/react";
 import { getUser } from "@/lib/actions";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface SignupFormProps {
   buttonName: string;
@@ -14,6 +15,7 @@ interface SignupFormProps {
 const SignupForm: React.FC<SignupFormProps> = ({
   buttonName,
 }) => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -33,6 +35,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
 
       if (user) {
         toast.error("User already exists, please login");
+        router.push("/login");
         return;
       }
 
@@ -60,6 +63,15 @@ const SignupForm: React.FC<SignupFormProps> = ({
       setPasswordError(true);
     } else {
       setPasswordError(false);
+
+      const user = await getUser(email);
+
+      if (!user) {
+        toast.error("User not found, please signup");
+        router.push("/signup");
+        return;
+      }
+
       await signIn("credentials", {
         email: email,
         password: password,

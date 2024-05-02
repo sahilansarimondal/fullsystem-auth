@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useParams,
-  useSearchParams,
-} from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 enum Error {
@@ -41,7 +38,6 @@ function AuthErrorPage() {
             "Please contact us if this error persists."}
         </div>
       </a>
-      <div></div>
     </div>
   );
 }
