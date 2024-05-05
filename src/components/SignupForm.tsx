@@ -34,7 +34,9 @@ const SignupForm: React.FC<SignupFormProps> = ({
       const user = await getUser(email);
 
       if (user) {
-        toast.error("User already exists, please login");
+        toast.error(
+          "An account with that email already exists,"
+        );
         router.push("/login");
         return;
       }

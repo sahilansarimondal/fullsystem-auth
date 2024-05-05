@@ -4,6 +4,7 @@ import SignupForm from "@/components/SignupForm";
 import FacebookIcon from "@/components/ui/FacebookIcon";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 import SocialIcon from "@/components/ui/SocialIcon";
+import { getUser } from "@/lib/actions";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,14 +12,27 @@ import React, { useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
-
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+    const fetchData = async (email: string) => {
+      if (status === "authenticated") {
+        try {
+          const data = await getUser(email);
+          if (!data?.isPaid) {
+            router.push("/getstarted?email=" + data?.email);
+            console.log(data);
+          } else {
+            router.push("/");
+            console.log(data);
+          }
+        } catch (error) {
+          console.log("Error fetching data", error);
+        }
+      }
+    };
+    fetchData(data?.user?.email as string);
+  }, [status, router, data]);
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center p-4">

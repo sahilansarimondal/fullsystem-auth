@@ -35,7 +35,7 @@ function AuthErrorPage() {
         </h5>
         <div className="font-normal text-gray-700 dark:text-gray-400">
           {errorMap[error] ||
-            "Please contact us if this error persists."}
+            "If this is not expected, please contact us."}
         </div>
       </a>
     </div>
