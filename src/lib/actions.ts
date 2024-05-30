@@ -38,74 +38,6 @@ export const createFriends = async ({
 
   if (
     friend1.trim() &&
-    !friend2?.trim() &&
-    !friend3?.trim() &&
-    !friend4?.trim()
-  ) {
-    const data = await prisma.childUser.create({
-      data: {
-        email: friend1,
-        password: password,
-        userId: user?.id,
-      },
-    });
-    return user?.id;
-  }
-  if (
-    friend1.trim() &&
-    friend2?.trim() &&
-    !friend3?.trim() &&
-    !friend4?.trim()
-  ) {
-    const data = await prisma.childUser.createMany({
-      data: [
-        {
-          userId: user?.id,
-          email: friend1,
-          password,
-        },
-        {
-          userId: user?.id,
-          email: friend2,
-          password,
-        },
-      ],
-      skipDuplicates: true,
-    });
-    return user?.id;
-  }
-
-  if (
-    friend1.trim() &&
-    friend2?.trim() &&
-    friend3?.trim() &&
-    !friend4?.trim()
-  ) {
-    const data = await prisma.childUser.createMany({
-      data: [
-        {
-          userId: user?.id,
-          email: friend1,
-          password,
-        },
-        {
-          userId: user?.id,
-          email: friend2,
-          password,
-        },
-        {
-          userId: user?.id,
-          email: friend3,
-          password,
-        },
-      ],
-      skipDuplicates: true,
-    });
-    return user?.id;
-  }
-
-  if (
-    friend1.trim() &&
     friend2?.trim() &&
     friend3?.trim() &&
     friend4?.trim()
@@ -138,6 +70,74 @@ export const createFriends = async ({
     return user?.id;
   }
 
+  if (
+    friend1.trim() &&
+    friend2?.trim() &&
+    friend3?.trim() &&
+    !friend4?.trim()
+  ) {
+    const data = await prisma.childUser.createMany({
+      data: [
+        {
+          userId: user?.id,
+          email: friend1,
+          password,
+        },
+        {
+          userId: user?.id,
+          email: friend2,
+          password,
+        },
+        {
+          userId: user?.id,
+          email: friend3,
+          password,
+        },
+      ],
+      skipDuplicates: true,
+    });
+    return user?.id;
+  }
+  if (
+    friend1.trim() &&
+    friend2?.trim() &&
+    !friend3?.trim() &&
+    !friend4?.trim()
+  ) {
+    const data = await prisma.childUser.createMany({
+      data: [
+        {
+          userId: user?.id,
+          email: friend1,
+          password,
+        },
+        {
+          userId: user?.id,
+          email: friend2,
+          password,
+        },
+      ],
+      skipDuplicates: true,
+    });
+    return user?.id;
+  }
+
+  if (
+    friend1.trim() &&
+    !friend2?.trim() &&
+    !friend3?.trim() &&
+    !friend4?.trim()
+  ) {
+    const data = await prisma.childUser.create({
+      data: {
+        email: friend1,
+        password: password,
+        userId: user?.id,
+      },
+    });
+    return user?.id;
+  }
+
   return null;
 };
 
@@ -152,19 +152,26 @@ export const getUser = async (email: string) => {
 };
 
 export const markUserAsPaid = async (
-  userId: string,
-  productName: string
+  email: string,
+  price: string
 ) => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new Error("User not found");
+  let planName;
+
+  if (price === "9.94") {
+    planName = "Starter";
+  } else if (price === "15.95") {
+    planName = "Professional";
+  } else {
+    planName = "Business";
   }
+
+  console.log(price, email);
   const data = await prisma.user.update({
     where: {
-      email: user.email,
+      email: email,
     },
     data: {
-      plan: productName,
+      plan: planName,
       isPaid: true,
     },
   });

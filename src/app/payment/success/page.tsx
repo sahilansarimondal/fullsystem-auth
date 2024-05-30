@@ -1,6 +1,6 @@
 // pages/success.tsx
 "use client";
-import { getUserById, markUserAsPaid } from "@/lib/actions";
+import { markUserAsPaid } from "@/lib/actions";
 import {
   useRouter,
   useSearchParams,
@@ -13,11 +13,11 @@ const Success = () => {
 
   useEffect(() => {
     // update the user
+
+    const email = searchParams.get("email") as string;
+    const price = searchParams.get("price") as string;
     async function updateUser() {
-      const data = await markUserAsPaid(
-        searchParams.get("userId") as string,
-        searchParams.get("plan") as string
-      );
+      await markUserAsPaid(email, price);
     }
 
     updateUser();

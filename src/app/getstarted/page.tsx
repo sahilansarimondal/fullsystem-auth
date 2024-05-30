@@ -9,6 +9,17 @@ import {
   useSearchParams,
 } from "next/navigation";
 import React, { Suspense } from "react";
+import {
+  CardElement,
+  Elements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentForm from "@/components/PaymentForm/PaymentForm";
+import axios from "axios";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const signupForm = {
   email1: "",
@@ -16,6 +27,8 @@ const signupForm = {
   email2: "",
   email3: "",
   email4: "",
+  planValue: "0",
+  planValueError: false,
   groupPassword: "",
   groupPasswordError: false,
   userId: "" || undefined,
@@ -79,19 +92,31 @@ const GetStarted = () => {
         setForm({ ...form, groupPasswordError: true });
         return;
       } else {
-        setForm({ ...form, groupPasswordError: false });
-        const friends = await createFriends({
-          friend1: form.email1,
-          friend2: form.email2,
-          friend3: form.email3,
-          friend4: form.email4,
-          password: form.groupPassword,
-          userEmail: searchParams.get("email") as string,
-        });
-        router.push("/payment?userId=" + friends);
+        setPasswordLengthError(false);
+        setActiveFrom(2);
       }
+    } else {
+      setForm({ ...form, groupPasswordError: false });
+      if (form.planValue === "0") {
+        setForm({ ...form, planValueError: true });
+        return;
+      }
+      const friends = await createFriends({
+        friend1: form.email1,
+        friend2: form.email2,
+        friend3: form.email3,
+        friend4: form.email4,
+        password: form.groupPassword,
+        userEmail: searchParams.get("email") as string,
+      });
+
+      router.push(
+        "/payment?email=" +
+          searchParams.get("email") +
+          "&price=" +
+          form.planValue
+      );
     }
-    console.log(form);
   };
 
   return (
@@ -201,6 +226,79 @@ const GetStarted = () => {
             </div>
           </FromWrapper>
         )}
+        {activeFrom === 2 && (
+          <FromWrapper
+            heading="Select a Plan"
+            para="Lorem helo lorem werrn fiewfe noad g feiwhe woiewf howfeji fwoeijwe hoife."
+          >
+            <div className="flex flex-col gap-3 items-start">
+              <div>
+                <p>Chose a plan</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  id="plan1"
+                  name="planvalue"
+                  value="9.94"
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      planValue: e.target.value,
+                    })
+                  }
+                  checked={form.planValue === "9.94"}
+                />
+                <label htmlFor="plan1">
+                  Plan 1 : $9.94
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  id="plan2"
+                  name="planvalue"
+                  value="15.95"
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      planValue: e.target.value,
+                    })
+                  }
+                  checked={form.planValue === "15.95"}
+                />
+                <label htmlFor="plan2">
+                  Plan 2 : $15.95
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  id="plan3"
+                  name="planvalue"
+                  value="24.95"
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      planValue: e.target.value,
+                    })
+                  }
+                  checked={form.planValue === "24.95"}
+                />
+                <label htmlFor="plan3">
+                  Plan 3 : $24.95
+                </label>
+              </div>
+              <div>
+                {form.planValueError && (
+                  <p className="text-red-500">
+                    Please select a plan
+                  </p>
+                )}
+              </div>
+            </div>
+          </FromWrapper>
+        )}
 
         <div className=" button flex justify-between pt-6">
           <div>
@@ -220,7 +318,11 @@ const GetStarted = () => {
           </div>
 
           <Button
-            name={activeFrom === 1 ? "Payment" : "Next"}
+            name={
+              activeFrom === 2
+                ? `Pay ${form.planValue}$`
+                : "Next"
+            }
             type="submit"
             className=" bg-green-400 border-2 hover:bg-green-500 border-green-400 hover:border-green-500 py-[2px] px-5"
           />

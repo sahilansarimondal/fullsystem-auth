@@ -17,7 +17,7 @@ const SignupPage = () => {
     if (status === "authenticated") {
       router.push("/getstarted?email=" + data.user?.email);
     }
-  }, [status, router]);
+  }, [status, router, data?.user?.email]);
   return (
     <div className="flex flex-col gap-3 justify-center items-center max-w-[1080px] md:px-12 p-4 md:mx-auto">
       <h2 className=" font-bold text-2xl md:text-4xl text-center py-4 md:py-8">
