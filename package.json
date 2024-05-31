@@ -24,7 +24,10 @@
     "react-hot-toast": "^2.4.1",
     "react-social-login-buttons": "^4.1.0",
     "resend": "^3.2.0",
-    "stripe": "^15.4.0"
+    "stripe": "^15.4.0",
+    "reactstrap": "^9.1.0",
+    "react-bootstrap": "^2.7.0",
+    "bootstrap": "^5.2.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

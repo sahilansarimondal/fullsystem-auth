@@ -37,3 +37,6 @@ Makefile
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+yarn.lock
+pakcage-lock.json
