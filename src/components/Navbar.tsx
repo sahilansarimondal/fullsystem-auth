@@ -52,9 +52,30 @@ const NavBar = () => {
               </>
             )}
             {status === "authenticated" && (
-              <Nav.Link href="#logout">
-                <Button type="button" name="Log out" className="hover:text-blue-500" onClick={() => signOut()} />
-              </Nav.Link>
+              <>
+                {session && session.user && (
+                  <Nav.Link href="/profile">
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={session.user.image ?? ""}
+                        alt="Profile"
+                        className="nav-user-profile d-inline-block rounded-circle mr-3"
+                        width="50"
+                        height="50"
+                        data-testid="navbar-picture-mobile"
+                        referrerPolicy="no-referrer"
+                      />
+                      <h6 className="d-inline-block mb-0" data-testid="navbar-user-mobile">
+                        {session.user.name}
+                      </h6>
+                    </div>
+                  </Nav.Link>
+                )}
+
+                <Nav.Link href="#logout">
+                  <Button type="button" name="Log out" className="hover:text-blue-500" onClick={() => signOut()} />
+                </Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
