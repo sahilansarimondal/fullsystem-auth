@@ -1,16 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Button from "./ui/Button";
-import Link from "next/link";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return null; // or you can return a loader here
+  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -21,20 +24,24 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto d-flex align-items-center gap-6">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/query">Files</Nav.Link>
-            <Nav.Link href="/utils">Utils</Nav.Link>
-            <Nav.Link href="/admin">Admin</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            {status === "authenticated" && (
+              <>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/query">Files</Nav.Link>
+                <Nav.Link href="/utils">Utils</Nav.Link>
+                <Nav.Link href="/admin">Admin</Nav.Link>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            )}
           </Nav>
           <Nav className="ms-auto d-flex align-items-center gap-6">
-            {status !== "unauthenticated" && (
+            {status === "unauthenticated" && (
               <>
                 <Nav.Link href="/login">
                   <Button type="button" name="Log in" className="hover:text-blue-500" />
@@ -44,7 +51,7 @@ const NavBar = () => {
                 </Nav.Link>
               </>
             )}
-            {status !== "authenticated" && (
+            {status === "authenticated" && (
               <Nav.Link href="#logout">
                 <Button type="button" name="Log out" className="hover:text-blue-500" onClick={() => signOut()} />
               </Nav.Link>
